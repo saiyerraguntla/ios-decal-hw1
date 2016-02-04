@@ -22,33 +22,36 @@ class Words {
 //: ### variables the same type? If not, why?
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: Answer: Yes. They are both optionals and are type String. The ! is for implicitly unwrapping.
 
 
 //: ## Q2: Variable Types and Function Types
-    func arePalindromes(words: [String]) -> Bool {
+    static func arePalindromes(words: [String]) -> Bool {
         let reversedWords = words.map() {String($0.characters.reverse())}
-        var numElements = words.count
+        let numElements = words.count
         
-        for let i = 0; i < numElements; i++ {
+        for var i = 0; i < numElements; i++ { // change let to var
             if words[i] != reversedWords[i] {
                 return false
             }
         }
+        return true
     }
 //: ### Why does the compiler dislike the **for loop**? Fix it.
 //: ### What else is wrong with this function? You may have to refer to (but **not**
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: Answer: i can not be declared as "let" and be mutated. The other problem was below the function is 
+//:         called with Words.arePalindromes() but the function is not static. There is also no default
+//:         return value (of true if false is never returned).
 
 
 //: ## Q3: More Functions and Object Initialization
-    class func isAnagram() -> Bool {
-        var countLetters : [Character : Int] //Line X
-        var lenA = self.wordA.characters.count
-        var lenB = self.wordB.characters.count
+    func isAnagram() -> Bool? { // added ?. should not be class func.
+        var countLetters = [Character : Int]() //Line X, was not initialized
+        let lenA = self.wordA.characters.count
+        let lenB = self.wordB.characters.count
         
         if lenA != lenB {
             return false
@@ -75,7 +78,7 @@ class Words {
             }
         }
         
-        for (letter, count) in countLetters {
+        for (_, count) in countLetters {
             if count != 0 {
                 return false
             }
@@ -89,7 +92,8 @@ class Words {
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: Answer: The array in Line X was not properly initialized. Also the function is not a class function, and 
+//:         a Boolean value is possibly returned (nil could be returned also).
     
     
 }
